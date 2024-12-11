@@ -74,19 +74,36 @@ def googleLogin():
         return redirect(url_for("home"))
     return oauth.myApp.authorize_redirect(redirect_uri=url_for("googleCallback", _external=True))
 
+# Sign up
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+# Login non-Google auth
+@app.route("/signin")
+def signin():
+    return render_template("signin.html")
+
 # Logout
 @app.route("/logout")
 def logout():
     session.pop("user", None)
     return redirect(url_for("home"))
 
+# Terms
+@app.route("/terms")
+def terms():
+    return render_template("terms.html")
+
+# Privacy
 @app.route("/privacy")
 def privacy():
     return render_template("privacy.html")
 
-@app.route("/tos")
-def tos():
-    return render_template("tos.html")
+# Cookies
+@app.route("/cookies")
+def cookies():
+    return render_template("cookies.html")
 
 # Run the script directly 
 if __name__ == "__main__":

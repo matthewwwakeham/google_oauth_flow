@@ -10,9 +10,9 @@ body {
 
 header {
   font-weight: 500;
-  font-size: 24px;
+  font-size: 28px;
   text-align: left;
-  padding: 2rem 0 0 2rem;
+  padding: 2rem 0 1rem 2rem;
   gap: 1rem;
 }
 
@@ -27,11 +27,14 @@ main {
 }
 
 section#welcome {
-  font-size: 36px;
+  font-weight: 700;
+  font-size: 40px;
   gap: 1rem;
+  padding: 0 0 1rem 0;
 }
 
 section#tagline {
+  font-weight: 700;
   font-size: 24px;
   gap: 1rem;
 }
@@ -41,35 +44,65 @@ section#btn {
   gap: 1rem;
 }
 
-footer {
-  display: inline-flex;
-  gap: 0.5rem;
-  padding: 0 0 1rem 1rem;
+section#orsep {
+  display: flex;
+  justify-content: flex-start;
+}
+
+section#create-account-btn {
+  display: flex;
+  justify-content: flex-start; /* Align button to the left */
+  padding: 0.25rem 0 0 0;
+}
+
+section#legal {
+  font-weight: 300;
+  color: #1E3A8A; /* Assuming $links translates to a CSS variable */
+  display: block; /* A block layout is simpler for a single sentence */
+  padding: 0 4rem 0 0;
   text-align: left;
+  font-size: 0.7rem; /* Slightly smaller font size */
+}
+section#legal a {
+  text-decoration: none;
+}
+section#legal a:hover,
+section#legal a:active {
+  text-decoration: underline; /* Ensure no underline on hover or active */
+  color: #1E3A8A;
+  transform: none; /* Disable any "pressed" effect */
+}
+
+section#alreadyhere {
+  font-weight: 700;
+  font-size: 18px;
+  padding: 3rem 0 0 0;
+  gap: 1rem;
+}
+
+section#signin {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.25rem 0 0 0;
+}
+
+footer {
+  font-weight: 300;
+  color: #1E3A8A; /* Assuming $links translates to a CSS variable */
+  display: block; /* A block layout is simpler for a single sentence */
+  padding: 0 2rem 2rem 2rem;
+  text-align: center;
   font-size: 0.9rem; /* Slightly smaller font size */
 }
 
 footer a {
-  display: inline-block; /* Make the link behave like a block element for padding */
-  padding: 0.5rem 1rem; /* Add padding to create the button shape */
-  color: #1E3A8A; /* White text */
-  background-color: transparent; /* Purple background */
-  text-decoration: none; /* Remove underline */
-  border: none; /* Remove default styling */
-  border-radius: 8px; /* Add rounded corners */
-  text-align: center; /* Center text inside the button */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Add hover/active effects */
-  cursor: pointer; /* Add pointer cursor for better UX */
+  text-decoration: none; /* No underline by default */
 }
 
-footer a:hover {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduce shadow on active state */
-  background-color: rgba(0, 0, 0, 0.1); /* Slightly darker purple on hover */
-  text-decoration: none; /* Ensure no underline appears on hover */
-}
-
+footer a:hover,
 footer a:active {
-  text-decoration: none; /* Prevent underline or other effects */
+  text-decoration: underline; /* Ensure no underline on hover or active */
+  color: #1E3A8A;
   transform: none; /* Disable any "pressed" effect */
 }
 
@@ -166,4 +199,99 @@ footer a:active {
 .gsi-material-button:not(:disabled):hover .gsi-material-button-state {
   background-color: #303030;
   opacity: 8%;
+}
+
+/* Custom Create Account Button */
+.create-account {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1E3A8A;
+  color: #F0F0F0;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #747775;
+  border-radius: 20px;
+  width: 300px; /* Fixed width */
+  height: 40px; /* Fixed height */
+  text-decoration: none; /* Remove underline */
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover and Active States */
+.create-account:hover {
+  background-color: #274cb4; /* Slight hover effect */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.create-account:active {
+  background-color: #3a62d4; /* Darker background on click */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom Sign-In Button */
+.signin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #1E3A8A;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #747775;
+  border-radius: 20px;
+  width: 300px; /* Fixed width */
+  height: 40px; /* Fixed height */
+  text-decoration: none; /* Remove underline */
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover and Active States */
+.signin:hover {
+  background-color: #e6e6e6; /* Slight hover effect */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.signin:active {
+  background-color: #cccccc; /* Darker background on click */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom OR separator pseudo-button */
+.or {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border: none;
+  border-radius: none;
+  width: 300px; /* Fixed width */
+  height: 20px; /* Fixed height */
+  text-decoration: none; /* Remove underline */
+  cursor: none;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Hover and Active States */
+.or:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.or:active {
+  background-color: transparent; /* Darker background on click */
+  box-shadow: none;
 }/*# sourceMappingURL=mobile.css.map */

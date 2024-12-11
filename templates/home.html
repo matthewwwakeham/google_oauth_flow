@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Home - Proxy Majik{% endblock %}
+{% block title %}MOX - Dive in.{% endblock %}
 
 {% block header %}
 MOX 
@@ -8,17 +8,32 @@ MOX
 
 {% block main %}
 <section id="welcome">
-    Begin your journey
+    Immerse Yourself
 </section>
 <section id="tagline">
-    Join now.
+    Go ahead, dive in.
 </section>
 <section id="btn">
     {% include '_google_button.html' %}
 </section>
+<section id="orsep">
+    <a href="#" class="or">or</a>
+</section>
+<section id="create-account-btn">
+    <a href="{{ url_for('signup') }}" class="create-account">Create account</a>
+</section>
+<section id="legal">
+    By signing up, you agree to the <a href="{{ url_for('terms') }}" class="button">Terms of Service</a> and <a href="{{ url_for('privacy') }}" class="button">Privacy Policy</a>, including <a href="{{ url_for('cookies') }}" class="button">Cookie Use</a>.
+</section>
+<section id="alreadyhere">
+    Already have an account?
+</section>
+<section id="login">
+    <a href="{{ url_for('signin') }}" class="signin">Sign in</a>
+</section>
+  
 {% endblock %}
 
 {% block footer %}
-<a href="{{ url_for('privacy') }}" class="button">Privacy</a> 
-<a href="{{ url_for('tos') }}" class="button">Terms</a>
+© 2024 MOX SP.
 {% endblock %} 
