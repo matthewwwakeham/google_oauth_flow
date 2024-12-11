@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  display: flex; /* Flexbox for layout */
+  flex-direction: column; /* Stack header, main, and footer vertically */
+  height: 100vh; /* Full viewport height */
+  font-family: "Inter Tight", sans-serif;
+}
+
+header {
+  font-weight: 500;
+  font-size: 24px;
+  text-align: left;
+  padding: 2rem 0 0 2rem;
+  gap: 1rem;
+}
+
+main {
+  flex: 1; /* Take up all available space between header and footer */
+  display: flex; /* Flexbox on main */
+  flex-direction: column; /* Stack children vertically */
+  justify-content: left; /* Center content vertically */
+  align-items: left; /* Center content horizontally */
+  padding: 2rem 0 0 2rem; /* Add padding for responsiveness */
+  gap: 0.5rem; /* Space between elements in main */
+}
+
+section#welcome {
+  font-size: 36px;
+  gap: 1rem;
+}
+
+section#tagline {
+  font-size: 24px;
+  gap: 1rem;
+}
+
+section#btn {
+  padding: 0.5rem 0 0 0;
+  gap: 1rem;
+}
+
+footer {
+  display: inline-flex;
+  gap: 0.5rem;
+  padding: 0 0 1rem 1rem;
+  text-align: left;
+  font-size: 0.9rem; /* Slightly smaller font size */
+}
+
+footer a {
+  display: inline-block; /* Make the link behave like a block element for padding */
+  padding: 0.5rem 1rem; /* Add padding to create the button shape */
+  color: #1E3A8A; /* White text */
+  background-color: transparent; /* Purple background */
+  text-decoration: none; /* Remove underline */
+  border: none; /* Remove default styling */
+  border-radius: 8px; /* Add rounded corners */
+  text-align: center; /* Center text inside the button */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Add hover/active effects */
+  cursor: pointer; /* Add pointer cursor for better UX */
+}
+
+footer a:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduce shadow on active state */
+  background-color: rgba(0, 0, 0, 0.1); /* Slightly darker purple on hover */
+  text-decoration: none; /* Ensure no underline appears on hover */
+}
+
+footer a:active {
+  text-decoration: none; /* Prevent underline or other effects */
+  transform: none; /* Disable any "pressed" effect */
+}
+
+.gsi-material-button {
+  -webkit-user-select: none; /* Safari and older Chrome */
+  -moz-user-select: none; /* Firefox */ /* Internet Explorer */
+  user-select: none; /* Standard */
+  background-color: WHITE;
+  background-image: none;
+  border: 1px solid #747775;
+  border-radius: 20px;
+  box-sizing: border-box;
+  color: #1f1f1f;
+  cursor: pointer;
+  font-family: "Roboto", arial, sans-serif;
+  font-size: 14px;
+  height: 40px;
+  letter-spacing: 0.25px;
+  outline: none;
+  overflow: hidden;
+  padding: 0 12px;
+  position: relative;
+  text-align: center;
+  transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: auto;
+  max-width: 400px;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
+
+.gsi-material-button .gsi-material-button-icon {
+  height: 20px;
+  margin-right: 12px;
+  min-width: 20px;
+  width: 20px;
+}
+
+.gsi-material-button .gsi-material-button-content-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.gsi-material-button .gsi-material-button-contents {
+  flex-grow: 1;
+  font-family: "Roboto", arial, sans-serif;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+
+.gsi-material-button .gsi-material-button-state {
+  transition: opacity 0.218s;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.gsi-material-button:disabled {
+  cursor: default;
+  background-color: rgba(255, 255, 255, 0.3803921569);
+  border-color: rgba(31, 31, 31, 0.1215686275);
+}
+
+.gsi-material-button:disabled .gsi-material-button-contents {
+  opacity: 38%;
+}
+
+.gsi-material-button:disabled .gsi-material-button-icon {
+  opacity: 38%;
+}
+
+.gsi-material-button:not(:disabled):active .gsi-material-button-state,
+.gsi-material-button:not(:disabled):focus .gsi-material-button-state {
+  background-color: #303030;
+  opacity: 12%;
+}
+
+.gsi-material-button:not(:disabled):hover {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+
+.gsi-material-button:not(:disabled):hover .gsi-material-button-state {
+  background-color: #303030;
+  opacity: 8%;
+}/*# sourceMappingURL=mobile.css.map */

@@ -1,19 +1,24 @@
-<!-- templates/home.html file-->
-<html>
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8" />
-    <title>Flask Google Login Example Web Application</title>
-</head>
+{% block title %}Home - Proxy Majik{% endblock %}
 
-<body>
-    {% if session %}
-    <h1>Welcome {{session.userinfo.preferred_username}}!</h1>
-    <p><a href="{{url_for('logout')}}">Logout</a></p>
-    <div><pre>{{pretty}}</pre></div>
-    {% else %}
-    <p><a href="{{url_for('googleLogin')}}">Login with Google</a></p>
-    {% endif %}
-</body>
+{% block header %}
+MOX 
+{% endblock %}
 
-</html>
+{% block main %}
+<section id="welcome">
+    Begin your journey
+</section>
+<section id="tagline">
+    Join now.
+</section>
+<section id="btn">
+    {% include '_google_button.html' %}
+</section>
+{% endblock %}
+
+{% block footer %}
+<a href="{{ url_for('privacy') }}" class="button">Privacy</a> 
+<a href="{{ url_for('tos') }}" class="button">Terms</a>
+{% endblock %} 
