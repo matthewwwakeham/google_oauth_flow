@@ -1,3 +1,6 @@
-{% if session %}
-    <h1>Welcome {{ session.userinfo.preferred_username }}!</h1>
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>OAuth: {{ user.oauth_id }}</p>
+    <p>User Color: {{ user.user_color }}</p>
+
     <a href="{{ url_for('logout') }}">Logout</a></p>

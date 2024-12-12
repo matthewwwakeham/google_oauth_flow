@@ -1,14 +1,7 @@
 // Font
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
 
-// Variables
-$background: #2B2A20;
-$primary-text: #F0F0F0;
-$secondary-text: #FFD700;
-$accent: #E60000; // highlights
-$links: #1E3A8A; // interactive elements
-$borders: #F5EEDC; // shadows
-
+// General
 body {
   margin: 0;
   padding: 0;
@@ -26,6 +19,7 @@ header {
   gap: 1rem;
 }
 
+// Main
 main {
   flex: 1; /* Take up all available space between header and footer */
   display: flex; /* Flexbox on main */
@@ -67,7 +61,6 @@ section#create-account-btn {
 
 section#legal {
   font-weight: 300;
-  color: $links; /* Assuming $links translates to a CSS variable */
   display: block; /* A block layout is simpler for a single sentence */
   padding: 0 4rem 0 0;
   text-align: left;
@@ -75,14 +68,21 @@ section#legal {
 
     a {
       text-decoration: none;
+      color: #1E3A8A;
     }
 
     a:hover,
     a:active {
       text-decoration: underline; /* Ensure no underline on hover or active */
-      color: $links;
+      color: #1E3A8A;
     transform: none; /* Disable any "pressed" effect */
   }
+  
+    a:visited {
+    color: #1E3A8A; /* Override visited state color to match normal state */
+    text-decoration: none;
+  }
+
 }
 
 section#alreadyhere {
@@ -98,9 +98,10 @@ section#signin {
   padding: 0.25rem 0 0 0;
 }
 
+// Footer
 footer {
   font-weight: 300;
-  color: $links; /* Assuming $links translates to a CSS variable */
+  color: black; /* Assuming $links translates to a CSS variable */
   display: block; /* A block layout is simpler for a single sentence */
   padding: 0 2rem 2rem 2rem;
   text-align: center;
@@ -114,8 +115,23 @@ footer a {
 footer a:hover,
 footer a:active {
   text-decoration: underline; /* Ensure no underline on hover or active */
-  color: $links;
+  color: black;
   transform: none; /* Disable any "pressed" effect */
+}
+
+footer a:visited {
+  color: black; /* Override visited state color to match normal state */
+  text-decoration: none;
+}
+
+footer p {
+  color: black;
+  margin: 0; /* Remove default margin for <p> */
+  display: flex; /* Use flexbox for horizontal layout */
+  justify-content: center; /* Center the links horizontally */
+  gap: 1rem; /* Add spacing between links */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  padding: 0 0 1rem 0;
 }
 
 // Google Sign in
@@ -228,7 +244,7 @@ footer a:active {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: $links;
+  background-color: #1E3A8A;
   color: #F0F0F0;
   font-family: "Inter Tight", sans-serif;
   font-size: 14px;
@@ -246,12 +262,12 @@ footer a:active {
 
 /* Hover and Active States */
 .create-account:hover {
-  background-color: lighten($links, 10%); /* Slight hover effect */
+  background-color: lighten(#1E3A8A, 10%); /* Slight hover effect */
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .create-account:active {
-  background-color: lighten($links, 20%); /* Darker background on click */
+  background-color: lighten(#1E3A8A, 20%); /* Darker background on click */
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -261,7 +277,7 @@ footer a:active {
   align-items: center;
   justify-content: center;
   background-color: white;
-  color: $links;
+  color: #1E3A8A;
   font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   font-weight: 600;

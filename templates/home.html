@@ -14,7 +14,7 @@ MOX
     Go ahead, dive in.
 </section>
 <section id="btn">
-    {% include '_google_button.html' %}
+    {% include '_google_sign_up_button.html' %}
 </section>
 <section id="orsep">
     <a href="#" class="or">or</a>
@@ -23,7 +23,7 @@ MOX
     <a href="{{ url_for('signup') }}" class="create-account">Create account</a>
 </section>
 <section id="legal">
-    By signing up, you agree to the <a href="{{ url_for('terms') }}" class="button">Terms of Service</a> and <a href="{{ url_for('privacy') }}" class="button">Privacy Policy</a>, including <a href="{{ url_for('cookies') }}" class="button">Cookie Use</a>.
+    By signing up, you agree to the <a href="{{ url_for('terms') }}" class="button" target="_blank">Terms of Service</a> and <a href="{{ url_for('privacy') }}" class="button" target="_blank">Privacy Policy</a>, including <a href="{{ url_for('cookies') }}" class="button" target="_blank">Cookie Use</a>.
 </section>
 <section id="alreadyhere">
     Already have an account?
@@ -35,5 +35,6 @@ MOX
 {% endblock %}
 
 {% block footer %}
+<p><a href="{{ url_for('accessibility') }}" target="_blank">Accessibility</a> <a href="{{ url_for('helpcenter') }}" target="_blank">Help Center</a> <a href="{{ url_for('sendfeedback')}}" target="_blank">Send Feedback</a></p>
 © 2024 MOX SP.
 {% endblock %} 

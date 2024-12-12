@@ -1,0 +1,19 @@
+{% extends "signin_base.html" %}
+
+{% block title %}MOX - Sign in{% endblock %}
+
+{% block header %}
+MOX 
+{% endblock %}
+
+{% block main %}
+<section id="signin">
+    Sign in
+</section>
+<section id="btn">
+    {% include '_google_sign_in_button.html' %}
+</section>
+{% endblock %}
+
+{% block footer %}
+{% endblock %} 
