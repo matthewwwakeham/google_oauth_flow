@@ -1,6 +1,6 @@
 {% extends "signin_base.html" %}
 
-{% block title %}MOX - Sign in{% endblock %}
+{% block title %}Sign in to MOX{% endblock %}
 
 {% block header %}
 MOX 
@@ -13,6 +13,50 @@ MOX
 <section id="btn">
     {% include '_google_sign_in_button.html' %}
 </section>
+<section id="orsep">
+    <a href="#" class="or">or</a>
+</section>
+<section id="form">
+<form id ="auth-form" action="{{url_for('login')}}" method="post" onsubmit="return validateForm()" novalidate>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <span class="error-message">{{ message }}</span>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+            <input 
+            id="email"
+            type="text" 
+            name="username" 
+            placeholder="Username or Email"
+            class="input-field"
+            required
+            maxlength="254"
+            autocomplete="username email"
+            />
+            <input 
+            id="password"
+            type="password" 
+            name="password" 
+            placeholder="Password" 
+            class="input-field"
+            required
+            minlength="8"
+            autocomplete="current-password"
+            />
+            <input 
+            type="submit" 
+            value="Sign in" 
+            class="input-field button" 
+            />
+        </form>
+    </section>
+    <section id="reset">
+        <a href="{{url_for('reset')}}">Forgot your password?</a>
+    </section>
 {% endblock %}
 
 {% block footer %}

@@ -12,7 +12,7 @@ header {
   font-weight: 500;
   font-size: 28px;
   text-align: center;
-  padding: 2rem 0 1rem 0;
+  padding: 2rem 0 0 0;
   gap: 1rem;
 }
 
@@ -20,9 +20,9 @@ main {
   flex: 1; /* Take up all available space between header and footer */
   display: flex; /* Flexbox on main */
   flex-direction: column; /* Stack children vertically */
-  justify-content: none; /* Default alignment */
+  justify-content: center; /* Default alignment */
   align-items: none; /* Default alignment */
-  padding: 2rem 2rem 0 2rem; /* Add padding for responsiveness */
+  padding: 0 2rem 8rem 2rem; /* Add padding for responsiveness */
   gap: 0.5rem; /* Space between elements in main */
 }
 
@@ -36,10 +36,55 @@ section#signin {
 }
 
 section#btn {
+  display: flex; /* Enables gap and alignment properties */
+  justify-content: center; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
   padding: 0.5rem 0 0 0;
   gap: 1rem;
-  text-align: center; /* Center text/content */
-  align-self: center; /* Center section horizontally */
+  width: 100%;
+}
+
+section#orsep {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+section#form {
+  display: flex;
+  flex-direction: column; /* Stack the form elements vertically */
+  justify-content: flex-start; /* Align to the top */
+  align-items: flex-start; /* Align elements with the "Sign In" text */
+  width: 100%; /* Full width for alignment */
+  max-width: 400px; /* Keep content width constrained */
+  margin: 0 auto; /* Center the section horizontally */
+  box-sizing: border-box;
+}
+
+section#reset {
+  padding: 0.5rem 0 0 0;
+  font-weight: 500;
+  font-size: 0.9rem;
+  gap: 1px;
+  text-align: left;
+  align-self: flex-start;
+  width: 100%;
+}
+
+section#reset a {
+  text-decoration: none; /* No underline by default */
+}
+
+section#reset a:hover,
+section#reset a:active {
+  text-decoration: underline; /* Ensure no underline on hover or active */
+  color: black;
+  transform: none; /* Disable any "pressed" effect */
+}
+
+section#reset a:visited {
+  color: black; /* Override visited state color to match normal state */
+  text-decoration: none;
 }
 
 .gsi-material-button {
@@ -135,4 +180,103 @@ section#btn {
 .gsi-material-button:not(:disabled):hover .gsi-material-button-state {
   background-color: #303030;
   opacity: 8%;
+}
+
+/* Custom OR separator pseudo-button */
+.or {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border: none;
+  border-radius: none;
+  width: 300px; /* Fixed width */
+  height: 20px; /* Fixed height */
+  text-decoration: none; /* Remove underline */
+  cursor: none;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Hover and Active States */
+.or:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.or:active {
+  background-color: transparent; /* Darker background on click */
+  box-shadow: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column; /* Stack input fields and buttons vertically */
+  gap: 1rem; /* Space between form elements */
+  width: 100%; /* Ensure it spans full width of its container */
+  box-sizing: border-box; /* Include padding and borders */
+}
+
+.input-field {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%; /* Match width of container */
+  max-width: 400px; /* Align with the form width */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box; /* Include padding in dimensions */
+}
+
+.input-field.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #1E3A8A;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #747775;
+  border-radius: 20px;
+  width: 100%; /* Matches the input fields' width */
+  max-width: 400px; /* Fixed width, consistent with form */
+  height: 40px; /* Fixed height */
+  text-decoration: none; /* Remove underline */
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 0; /* Reset padding for alignment */
+  box-sizing: border-box;
+}
+
+/* Hover and Active States */
+.input-field.button:hover {
+  background-color: rgb(245, 245, 245); /* Slight hover effect */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.input-field.button:active {
+  background-color: rgb(230, 230, 230); /* Darker background on click */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.error-message {
+  color: #E60000;
+  font-weight: 400;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 0.9rem;
+  display: none;
+  margin-top: 0.5rem; /* Space between the input and the error */
+}
+
+/* To show the error message */
+.error-message.active {
+  display: block; /* Makes the message visible */
 }/*# sourceMappingURL=signin_mobile.css.map */

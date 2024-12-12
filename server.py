@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from datetime import datetime, timedelta, timezone
 from flask_sqlalchemy import SQLAlchemy
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, abort, request, redirect, render_template, session, url_for
+from flask import Flask, abort, flash, request, redirect, render_template, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from utils import get_random_color
 
@@ -92,9 +92,17 @@ def home():
 @app.route("/dashboard")
 def dashboard():
     # Pass user data to dashboard
-    user = session.get("user")
-    if not user:
+    user_id = session.get("user_id")
+    if not user_id:
         return redirect(url_for("signin"))
+
+    # Fetch user details from the db using user_id
+    user = User.query.get(user_id)
+    if not user:
+        flash("User not found.", "error")
+        return redirect(url_for("signin"))   
+
+    # Pass the user object to the template
     return render_template("dashboard.html", user=user)
 
 # Sign in
@@ -141,7 +149,7 @@ def googleCallback():
 
     # set complete user information in the session
     session.permanent = True  # This makes the session subject to `PERMANENT_SESSION_LIFETIME`
-    session["user"] = {"email": email, "oauth_id": oauth_id, "user_color": user.user_color}
+    session["user_id"] = user.user_id
     return redirect(url_for("dashboard"))
 
 # Login
@@ -161,16 +169,87 @@ def googleLogin():
 def signup():
     return render_template("signup.html")
 
+# Register
+@app.route("/register", method=["POST"])
+def register():
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+    user = User.query.filter_by(username=username) or User.query.filter_by(email=email).first()
+    user_color = get_random_color()
+    if user:
+        return render_template("signup.html", error="User already exists!")
+    else:
+        new_user = User(
+            username=username, 
+            email=email, 
+            user_color=user_color,
+            oauth_id='',
+            auth_provider="mox",
+            created_at=datetime.now(timezone.utc),
+            current_login_at=datetime.now(timezone.utc),
+            current_login_ip=request.remote_addr,
+            login_count=1
+        )
+
+        # Set the password separately if `set_password` is a custom method
+        new_user.set_password(password)
+
+        # DB session and commit
+        db.session.add(new_user)
+        db.session.commit()
+
+        # Session
+        # set complete user information in the session
+        session.permanent = True  # This makes the session subject to `PERMANENT_SESSION_LIFETIME`
+        session["user_id"] = user.user_id
+        return redirect(url_for("dashboard"))
+
 # Login non-Google auth
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        # Get username or email using .get() to avoid errors if one is missing
+        username_or_email = request.form.get('username') or request.form.get('email')
+        password = request.form.get("password")
+
+        if not username_or_email:
+            flash('Invalid username or password.', 'error')
+            return redirect(url_for('login'))
+        
+        # Query the user based on either the username or email
+        user = User.query.filter((User.username == username_or_email) | (User.email == username_or_email)).first()
+
+        if user and user.check_password(password):
+            # Update existing user's login details
+            session.permanent = True
+            user.last_login_at = user.current_login_at
+            user.current_login_ip = request.remote_addr
+            user.current_login_at = datetime.now(timezone.utc)
+            user.login_count += 1
+            session['user_id'] = user.user_id
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid username or password.', 'error')
+            return redirect(url_for('login')) # Stay on the login page
+
+    return render_template("signin.html")
+
+# Sign in html route
 @app.route("/signin")
 def signin():
-    return render_template("signin.html")
+    return redirect(url_for(login))
 
 # Logout
 @app.route("/logout")
 def logout():
     session.pop("user", None)
     return redirect(url_for("home"))
+
+# Reset
+@app.route("/reset")
+def reset():
+    return render_template("reset.html")
 
 # Terms
 @app.route("/terms")

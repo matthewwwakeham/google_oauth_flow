@@ -1,0 +1,79 @@
+{% extends "signin_base.html" %}
+
+{% block title %}MOX - Create account{% endblock %}
+
+{% block header %}
+MOX 
+{% endblock %}
+
+{% block main %}
+<section id="signin">
+    Create account
+</section>
+<section id="form">
+    <form id="auth-form" action="{{ url_for('register') }}" method="post" onsubmit="return validateForm()" novalidate>
+        <span id="usernameError" class="error-message"></span>
+        <!-- Username Field -->
+        <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            placeholder="Username"
+            class="input-field"
+            required
+            minlength="3"
+            maxlength="15"
+            pattern="^[a-zA-Z0-9]+$"
+        />
+        
+        <span id="emailError" class="error-message"></span>
+        <!-- Email Field -->
+        <input
+            type="email" 
+            id="email"
+            name="email" 
+            placeholder="Email"
+            class="input-field"
+            required
+            maxlength="254"
+        />  
+        
+        <span id="passwordError" class="error-message"></span>
+        <!-- Password Field -->
+        <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            placeholder="Password" 
+            class="input-field"
+            required
+            minlength="8"
+        />
+        
+        <span id="confirmPasswordError" class="error-message"></span>
+        <!-- Confirm Password Field -->
+        <input 
+            type="password" 
+            id="confirm-password" 
+            name="confirm-password" 
+            placeholder="Confirm Password" 
+            class="input-field"
+            required
+            minlength="8"
+        />
+        
+        <!-- Submit Button -->
+        <input 
+            type="submit" 
+            value="Continue" 
+            class="input-field button" 
+        />
+    </form>    
+    </section>
+    <section id="reset">
+        Already have an account? <a href="{{url_for('signin')}}">Sign in.</a>
+    </section>
+    <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+{% endblock %}
+{% block footer %}
+{% endblock %} 
