@@ -19,6 +19,22 @@ header {
   gap: 1rem;
 }
 
+header a {
+  text-decoration: none; /* No underline by default */
+}
+
+header a:hover,
+header a:active {
+  text-decoration: none; /* Ensure no underline on hover or active */
+  color: black;
+  transform: none; /* Disable any "pressed" effect */
+}
+
+header a:visited {
+  color: black; /* Override visited state color to match normal state */
+  text-decoration: none;
+}
+
 // Main
 main {
   flex: 1; /* Take up all available space between header and footer */
@@ -51,6 +67,8 @@ section#btn {
 section#orsep {
   display: flex;
   justify-content: flex-start;
+  pointer-events: none; /* Prevent mouse interactions */
+  user-select: none;    /* Prevent text selection */
 }
 
 section#create-account-btn {
@@ -318,9 +336,11 @@ footer p {
   width: 300px; /* Fixed width */
   height: 20px; /* Fixed height */
   text-decoration: none; /* Remove underline */
-  cursor: none;
+  cursor: default;
   text-align: center;
   box-sizing: border-box;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Hover and Active States */

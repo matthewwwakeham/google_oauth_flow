@@ -3,7 +3,7 @@
 {% block title %}MOX - Dive in.{% endblock %}
 
 {% block header %}
-MOX 
+<a href="{{ url_for('home') }}">MOX</a>
 {% endblock %}
 
 {% block main %}
@@ -17,7 +17,7 @@ MOX
     {% include '_google_sign_up_button.html' %}
 </section>
 <section id="orsep">
-    <a href="#" class="or">or</a>
+    <a href="#" class="or" tabindex="-1">or</a>
 </section>
 <section id="create-account-btn">
     <a href="{{ url_for('signup') }}" class="create-account">Create account</a>

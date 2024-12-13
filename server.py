@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, timezone
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import or_
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, abort, flash, request, redirect, render_template, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -23,6 +24,12 @@ app.secret_key = os.getenv("FLASK_SECRET")
 
 # Set session lifetime
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30) # Session expires after 30 minutes
+
+# Enable session protection
+app.config["SESSION_PROTECTION"] = "strong"
+
+# Set remember me cookie duration to expire immediately on browser close
+app.config["REMEMBER_COOKIE_DURATION"] = timedelta(minutes=0)
 
 # Configure SQL Alchemy
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
@@ -56,17 +63,24 @@ class User(db.Model):
     # Membership/Subscription
     is_member = db.Column(db.Boolean, default=False, nullable=False)  # Default False
     membership_start_date = db.Column(db.DateTime, default=lambda: datetime.now(tz=timezone.utc), nullable=True)  # Membership start date
-    membership_end_date = db.Column(db.DateTime, nullable=True)  # Membership end date
+    membership_end_date = db.Column(db.DateTime, nullable=True, default=None)  # Membership end date
 
     # Role/Permissions
     role = db.Column(db.String(20), default="user", nullable=False)  # Role (e.g., admin, user)
 
     # Constraints and Indexes
     __table_args__ = (
-        db.UniqueConstraint('username', name='uq_username'),
-        db.UniqueConstraint('email', name='uq_email'),
+        db.Index('ix_user_id', 'user_id'),
+        db.Index('ix_username', 'username'),
         db.Index('ix_email', 'email'),  # Index for faster lookup
+        db.Index('ix_oauth_id', 'oauth_id'),
     )
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 # Google data
 SERVER_METADATA_URL = "https://accounts.google.com/.well-known/openid-configuration"
@@ -97,7 +111,7 @@ def dashboard():
         return redirect(url_for("signin"))
 
     # Fetch user details from the db using user_id
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if not user:
         flash("User not found.", "error")
         return redirect(url_for("signin"))   
@@ -132,7 +146,7 @@ def googleCallback():
 
         # Create a new user if not found
         user = User(
-            username=None, # User will choose later
+            username=email, # User will choose later
             email=email,
             oauth_id=oauth_id,
             auth_provider="google",
@@ -161,8 +175,8 @@ def googleLogin():
         return oauth.myApp.authorize_redirect(redirect_uri=url_for("googleCallback", _external=True))
     except Exception as e:
         # Log the error and provide user feedback
-        print(f"Error during logn: {e}")
-        return "An error occured during login. Please try again.", 500
+        flash("An error occurred during login. Please try again.", "error")
+        return redirect(url_for("signin"))
     
 # Sign up
 @app.route("/signup")
@@ -170,12 +184,12 @@ def signup():
     return render_template("signup.html")
 
 # Register
-@app.route("/register", method=["POST"])
+@app.route("/register", methods=["POST"])
 def register():
     username = request.form['username']
     email = request.form['email']
     password = request.form['password']
-    user = User.query.filter_by(username=username) or User.query.filter_by(email=email).first()
+    user = User.query.filter(or_(User.username == username, User.email == email)).first()
     user_color = get_random_color()
     if user:
         return render_template("signup.html", error="User already exists!")
@@ -202,7 +216,7 @@ def register():
         # Session
         # set complete user information in the session
         session.permanent = True  # This makes the session subject to `PERMANENT_SESSION_LIFETIME`
-        session["user_id"] = user.user_id
+        session["user_id"] = new_user.user_id
         return redirect(url_for("dashboard"))
 
 # Login non-Google auth
@@ -213,14 +227,17 @@ def login():
         username_or_email = request.form.get('username') or request.form.get('email')
         password = request.form.get("password")
 
-        if not username_or_email:
+        if not username_or_email or not password:
             flash('Invalid username or password.', 'error')
             return redirect(url_for('login'))
         
         # Query the user based on either the username or email
-        user = User.query.filter((User.username == username_or_email) | (User.email == username_or_email)).first()
+        user = User.query.filter(or_(User.username == username_or_email, User.email == username_or_email)).first()
 
         if user and user.check_password(password):
+            # Clear any existing session data
+            session.clear()
+
             # Update existing user's login details
             session.permanent = True
             user.last_login_at = user.current_login_at
@@ -238,12 +255,12 @@ def login():
 # Sign in html route
 @app.route("/signin")
 def signin():
-    return redirect(url_for(login))
+    return redirect(url_for("login"))
 
 # Logout
 @app.route("/logout")
 def logout():
-    session.pop("user", None)
+    session.pop("user_id", None)
     return redirect(url_for("home"))
 
 # Reset

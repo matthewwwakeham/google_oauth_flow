@@ -1,6 +1,57 @@
-    <h1>Welcome, {{ user.username }}!</h1>
-    <p>Email: {{ user.email }}</p>
-    <p>OAuth: {{ user.oauth_id }}</p>
-    <p>User Color: {{ user.user_color }}</p>
 
-    <a href="{{ url_for('logout') }}">Logout</a></p>
+{% extends "dashboard_base.html" %}
+
+{% block title %}MOX - Dashboard{% endblock %}
+
+{% block header %}
+<div id="user-profile">
+    <!-- User Profile Button -->
+    <button class="user-circle" id="user-circle" aria-label="Open Menu"></button>
+</div>
+{% endblock %}
+
+{% block main %}
+<h1>Welcome, {{ user.username }}!</h1>
+<p>Email: {{ user.email }}</p>
+<p>OAuth: {{ user.oauth_id }}</p>
+<p>User Color: {{ user.user_color }}</p>
+<a href="{{ url_for('logout') }}">Logout</a></p>
+<!-- JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const userName = "{{ user.username }}";
+        const userColor = "{{ user.user_color }}";
+
+        const lightenColor = (color, percent) => {
+            if (!color.startsWith("#") || color.length !== 7) {
+                return "#CCCCCC"; // Fallback light gray
+            }
+            const num = parseInt(color.slice(1), 16),
+                amt = Math.round(2.55 * percent),
+                R = (num >> 16) + amt,
+                G = ((num >> 8) & 0x00FF) + amt,
+                B = (num & 0x0000FF) + amt;
+
+            return `#${(
+                0x1000000 +
+                (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+                (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+                (B < 255 ? (B < 1 ? 0 : B) : 255)
+            )
+                .toString(16)
+                .slice(1)}`;
+        };
+
+        const menuButton = document.getElementById("user-circle");
+        if (menuButton) {
+            menuButton.textContent = userName.charAt(0).toUpperCase();
+            menuButton.style.backgroundColor = userColor || "#000000";
+            const lighterBorderColor = lightenColor(userColor, 20);
+            menuButton.style.border = `2px solid ${lighterBorderColor}`;
+            menuButton.style.color = "white";
+        }
+    });
+</script>
+{% endblock %}
+{% block footer %}
+{% endblock %} 

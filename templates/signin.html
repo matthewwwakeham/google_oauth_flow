@@ -3,7 +3,7 @@
 {% block title %}Sign in to MOX{% endblock %}
 
 {% block header %}
-MOX 
+<a href="{{ url_for('home') }}">MOX</a>
 {% endblock %}
 
 {% block main %}
@@ -14,7 +14,7 @@ MOX
     {% include '_google_sign_in_button.html' %}
 </section>
 <section id="orsep">
-    <a href="#" class="or">or</a>
+    <a href="#" class="or" tabindex="-1">or</a>
 </section>
 <section id="form">
 <form id ="auth-form" action="{{url_for('login')}}" method="post" onsubmit="return validateForm()" novalidate>
@@ -57,6 +57,7 @@ MOX
     <section id="reset">
         <a href="{{url_for('reset')}}">Forgot your password?</a>
     </section>
+    <script src="{{ url_for('static', filename='js/signin.js') }}"></script>
 {% endblock %}
 
 {% block footer %}

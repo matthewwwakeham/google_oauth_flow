@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex; /* Flexbox for layout */
+  flex-direction: column; /* Stack header, main, and footer vertically */
+  height: 100vh; /* Full viewport height */
+  font-family: "Inter Tight", sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 1rem 0 0;
+  gap: 1rem;
+}
+
+/* User Circle Button */
+.user-circle {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  background-color: #000000;
+  font-weight: bold;
+  color: white; /* Default text color */
+  border: 1px solid #CCCCCC;
+  border-radius: 50%; /* Makes it circular */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visibility */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover Effect */
+.user-circle:hover {
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+}
+
+/* Focus Effect for Accessibility */
+.user-circle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Focus ring for better visibility */
+}/*# sourceMappingURL=dashboard_mobile.css.map */
